@@ -1,6 +1,7 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #pragma once
 #include "GameFramework/Character.h"
+#include "UQuakeWeapon.h"
 #include "UQuakeCharacter.generated.h"
 
 class UInputComponent;
@@ -15,8 +16,8 @@ class AUQuakeCharacter : public ACharacter
 	class USkeletalMeshComponent* Mesh1P;
 
 	/** Gun mesh: 1st person view (seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	class USkeletalMeshComponent* FP_Gun;
+	/*UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	class USkeletalMeshComponent* FP_Gun;*/
 
 	/** Location on gun mesh where projectiles should spawn. */
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
@@ -54,6 +55,23 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UAnimMontage* FireAnimation;
 
+    /** The starting inventory of the player */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Inventory)
+    TArray<TSubclassOf<class AUQuakeWeapon>> DefaultInventory;
+
+private:
+    /** The current inventory of the player */
+    TArray<AUQuakeWeapon*> WeaponInventory;
+
+    /** The currently equipped weapon */
+    class AUQuakeWeapon* CurrentWeapon;
+
+    /** The index of the currently equipped weapon */
+    int32 WeaponIndex;
+
+    /** The index of the default weapon. Should be 1 for the Shotgun */
+    int32 DefaultWeaponIndex;
+
 protected:
 	
 	/** Fires a projectile. */
@@ -76,6 +94,8 @@ protected:
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	 */
 	void LookUpAtRate(float Rate);
+
+    void UpdateCurrentWeapon();
 
 	struct TouchData
 	{

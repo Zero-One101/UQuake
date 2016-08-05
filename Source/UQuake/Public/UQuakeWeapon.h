@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "UQuakeCharacter.h"
 #include "UQuakeWeapon.generated.h"
 
 UENUM(BlueprintType)
@@ -28,7 +29,9 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-    virtual void Fire();
+    virtual void Fire(class AUQuakeCharacter* player);
+
+protected:
 
     bool CanFire();
 
@@ -60,7 +63,10 @@ public:
     UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
     class USkeletalMeshComponent* WeaponMesh;
 
-private:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Audio)
+    class USoundBase* FireSound;
+
+protected:
     // The time until the weapon can fire again
     float remainingReloadTime;
 };

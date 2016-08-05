@@ -26,7 +26,7 @@ void AUQuakeWeapon::Tick( float DeltaTime )
 
 }
 
-void AUQuakeWeapon::Fire()
+void AUQuakeWeapon::Fire(class AUQuakeCharacter* player)
 {
 }
 
