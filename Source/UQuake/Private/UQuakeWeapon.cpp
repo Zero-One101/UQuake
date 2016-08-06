@@ -24,6 +24,10 @@ void AUQuakeWeapon::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+    if (remainingReloadTime > 0)
+    {
+        remainingReloadTime -= DeltaTime;
+    }
 }
 
 void AUQuakeWeapon::Fire(class AUQuakeCharacter* player)

@@ -4,14 +4,6 @@
 #include "Engine.h"
 #include "Shotgun.h"
 
-void AShotgun::Tick(float DeltaSeconds)
-{
-    if (remainingReloadTime > 0)
-    {
-        remainingReloadTime -= DeltaSeconds;
-    }
-}
-
 void AShotgun::Fire(class AUQuakeCharacter* player)
 {
     if (CanFire())
@@ -36,7 +28,6 @@ void AShotgun::FireSpread(FRotator Rotation)
     TraceParams.bReturnPhysicalMaterial = false;
 
     FHitResult Hit(ForceInit);
-    //auto Start = GetActorLocation();
     auto Start = WeaponMesh->GetSocketLocation("Muzzle");
     FRotationMatrix RotMatrix(Rotation);
 
