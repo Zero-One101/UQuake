@@ -8,9 +8,8 @@ void AShotgun::Fire(class AUQuakeCharacter* player)
 {
     if (CanFire())
     {
-        UE_LOG(LogTemp, Log, TEXT("Shotgun Fire"));
-
         FireSpread(player->GetControlRotation());
+        currentAmmo--;
 
         if (FireSound)
         {
@@ -33,8 +32,6 @@ void AShotgun::FireSpread(FRotator Rotation)
 
     for (int32 i = 0; i < 6; i++)
     {
-        UE_LOG(LogTemp, Log, TEXT("BANG!"));
-
         FVector Spread = FVector(0, FMath::RandRange(-maxSpread, maxSpread), FMath::RandRange(-maxSpread, maxSpread));
         Spread = RotMatrix.TransformVector(Spread);
         auto End = Rotation.Vector() * range + Start + Spread;

@@ -52,8 +52,7 @@ AUQuakeCharacter::AUQuakeCharacter()
 	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P are set in the
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 
-    // I probably don't need to be explicit about this
-    WeaponIndex = 0;
+    WeaponIndex = DefaultWeaponIndex;
 }
 
 void AUQuakeCharacter::BeginPlay()
@@ -63,14 +62,12 @@ void AUQuakeCharacter::BeginPlay()
 
     for (auto& curWeapon : DefaultInventory)
     {
-        UE_LOG(LogTemp, Log, TEXT("Found AUQuakeWeapon"));
         AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(curWeapon);
         WeaponInventory.Emplace(weapon);
+        weapon->SetActorHiddenInGame(true);
     }
 
     UpdateCurrentWeapon();
-
-    CurrentWeapon->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -83,6 +80,8 @@ void AUQuakeCharacter::SetupPlayerInputComponent(class UInputComponent* InputCom
 
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+    InputComponent->BindAction("NextWeapon", IE_Pressed, this, &AUQuakeCharacter::NextWeapon);
+    InputComponent->BindAction("PrevWeapon", IE_Pressed, this, &AUQuakeCharacter::PrevWeapon);
 
 	InputComponent->BindAxis("MoveForward", this, &AUQuakeCharacter::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AUQuakeCharacter::MoveRight);
@@ -95,6 +94,36 @@ void AUQuakeCharacter::SetupPlayerInputComponent(class UInputComponent* InputCom
 	InputComponent->BindAxis("TurnRate", this, &AUQuakeCharacter::TurnAtRate);
 	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	InputComponent->BindAxis("LookUpRate", this, &AUQuakeCharacter::LookUpAtRate);
+}
+
+void AUQuakeCharacter::NextWeapon()
+{
+    auto inventoryLength = WeaponInventory.Num();
+    if (WeaponIndex == inventoryLength - 1)
+    {
+        WeaponIndex = 0;
+    }
+    else
+    {
+        WeaponIndex++;
+    }
+
+    UpdateCurrentWeapon();
+}
+
+void AUQuakeCharacter::PrevWeapon()
+{
+    auto inventoryLength = WeaponInventory.Num();
+    if (WeaponIndex == 0)
+    {
+        WeaponIndex = inventoryLength - 1;
+    }
+    else
+    {
+        WeaponIndex--;
+    }
+
+    UpdateCurrentWeapon();
 }
 
 void AUQuakeCharacter::FireHeld(float Val)
@@ -193,7 +222,14 @@ void AUQuakeCharacter::LookUpAtRate(float Rate)
 
 void AUQuakeCharacter::UpdateCurrentWeapon()
 {
+    if (CurrentWeapon)
+    {
+        CurrentWeapon->DetachFromActor(FDetachmentTransformRules(EDetachmentRule::KeepWorld, false));
+        CurrentWeapon->SetActorHiddenInGame(true);
+    }
     CurrentWeapon = WeaponInventory[WeaponIndex];
+    CurrentWeapon->SetActorHiddenInGame(false);
+    CurrentWeapon->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
 }
 
 bool AUQuakeCharacter::EnableTouchscreenMovement(class UInputComponent* InputComponent)

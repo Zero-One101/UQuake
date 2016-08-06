@@ -59,6 +59,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Inventory)
     TArray<TSubclassOf<class AUQuakeWeapon>> DefaultInventory;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Inventory)
+    /** The index of the default weapon. Should be 1 for the Shotgun */
+    int32 DefaultWeaponIndex;
+
 private:
     /** The current inventory of the player */
     TArray<AUQuakeWeapon*> WeaponInventory;
@@ -69,16 +73,18 @@ private:
     /** The index of the currently equipped weapon */
     int32 WeaponIndex;
 
-    /** The index of the default weapon. Should be 1 for the Shotgun */
-    int32 DefaultWeaponIndex;
 
 protected:
+    void NextWeapon();
+
+    void PrevWeapon();
+
     void FireHeld(float Val);
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
 
-	/** Handles stafing movement, left and right */
+	/** Handles strafing movement, left and right */
 	void MoveRight(float Val);
 
 	/**
