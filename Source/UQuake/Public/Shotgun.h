@@ -11,7 +11,7 @@
 UCLASS()
 class UQUAKE_API AShotgun : public AUQuakeWeapon
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 	
 public:
     virtual void Tick(float DeltaSeconds) override;

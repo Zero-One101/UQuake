@@ -17,17 +17,17 @@ enum class EAmmoType : uint8
 UCLASS()
 class UQUAKE_API AUQuakeWeapon : public AActor
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
-	AUQuakeWeapon();
+    // Sets default values for this actor's properties
+    AUQuakeWeapon();
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
+    // Called every frame
+    virtual void Tick( float DeltaSeconds ) override;
 
     virtual void Fire(class AUQuakeCharacter* player);
 

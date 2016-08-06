@@ -36,16 +36,14 @@ void AShotgun::FireSpread(FRotator Rotation)
     TraceParams.bReturnPhysicalMaterial = false;
 
     FHitResult Hit(ForceInit);
-    auto Start = GetActorLocation();
+    //auto Start = GetActorLocation();
+    auto Start = WeaponMesh->GetSocketLocation("Muzzle");
+    FRotationMatrix RotMatrix(Rotation);
 
     for (int32 i = 0; i < 6; i++)
     {
         UE_LOG(LogTemp, Log, TEXT("BANG!"));
-        /*FVector Spread = FVector(FMath::RandRange(-maxSpread, maxSpread), 0, FMath::RandRange(-maxSpread, maxSpread)) * Rotation.Vector();
-        auto End = Rotation.Vector() * range + Start;
-        End += Spread;*/
 
-        FRotationMatrix RotMatrix(Rotation);
         FVector Spread = FVector(0, FMath::RandRange(-maxSpread, maxSpread), FMath::RandRange(-maxSpread, maxSpread));
         Spread = RotMatrix.TransformVector(Spread);
         auto End = Rotation.Vector() * range + Start + Spread;
