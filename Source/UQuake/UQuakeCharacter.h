@@ -73,9 +73,7 @@ private:
     int32 DefaultWeaponIndex;
 
 protected:
-	
-	/** Fires a projectile. */
-	void OnFire();
+    void FireHeld(float Val);
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);

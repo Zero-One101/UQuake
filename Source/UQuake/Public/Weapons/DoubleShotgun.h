@@ -14,6 +14,5 @@ class UQUAKE_API ADoubleShotgun : public AUQuakeWeapon
     GENERATED_BODY()
 	
 public:
-    virtual void Tick(float DeltaSeconds) override;
     virtual void Fire(class AUQuakeCharacter* player) override;
 };

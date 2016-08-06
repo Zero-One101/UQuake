@@ -3,17 +3,6 @@
 #include "UQuake.h"
 #include "DoubleShotgun.h"
 
-
-
-
-void ADoubleShotgun::Tick(float DeltaSeconds)
-{
-    if (remainingReloadTime > 0)
-    {
-        remainingReloadTime -= DeltaSeconds;
-    }
-}
-
 void ADoubleShotgun::Fire(class AUQuakeCharacter* player)
 {
     if (CanFire())
