@@ -4,6 +4,7 @@
 
 #include "GameFramework/Actor.h"
 #include "UQuakeCharacter.h"
+#include "UQuakeProjectile.h"
 #include "UQuakeWeapon.generated.h"
 
 UENUM(BlueprintType)
@@ -65,6 +66,9 @@ public:
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Audio)
     class USoundBase* FireSound;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
+    TSubclassOf<AUQuakeProjectile> Projectile;
 
 protected:
     // The time until the weapon can fire again
