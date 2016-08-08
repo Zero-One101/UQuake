@@ -2,6 +2,7 @@
 
 #include "UQuake.h"
 #include "UQuakeProjectile.h"
+#include "UQuakeCharacter.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 AUQuakeProjectile::AUQuakeProjectile() 
@@ -25,7 +26,7 @@ AUQuakeProjectile::AUQuakeProjectile()
 	ProjectileMovement->InitialSpeed = 3000.f;
 	ProjectileMovement->MaxSpeed = 3000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
-	ProjectileMovement->bShouldBounce = true;
+    ProjectileMovement->bShouldBounce = false;
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
@@ -33,11 +34,8 @@ AUQuakeProjectile::AUQuakeProjectile()
 
 void AUQuakeProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
-	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
-		Destroy();
-	}
+    if (!OtherActor->IsA(AUQuakeCharacter::StaticClass()))
+    {
+        Destroy();
+    }
 }

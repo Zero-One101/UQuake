@@ -15,4 +15,7 @@ class UQUAKE_API ANailgun : public AUQuakeWeapon
 	
 public:
     virtual void Fire(class AUQuakeCharacter* player) override;
+
+private:
+    bool LeftFire = true;
 };
