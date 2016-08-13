@@ -43,6 +43,10 @@ public:
     /** The index of the default weapon. Should be 1 for the Shotgun */
     int32 DefaultWeaponIndex;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
+    /** The player's jump sound */
+    class USoundBase* JumpSound;
+
 private:
     /** The current inventory of the player */
     TArray<AUQuakeWeapon*> WeaponInventory;
@@ -60,6 +64,8 @@ protected:
     void PrevWeapon();
 
     void FireHeld(float Val);
+
+    virtual void Jump() override;
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);

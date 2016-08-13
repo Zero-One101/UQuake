@@ -120,6 +120,16 @@ void AUQuakeCharacter::FireHeld(float Val)
     }
 }
 
+void AUQuakeCharacter::Jump()
+{
+    if (CanJump())
+    {
+        UGameplayStatics::PlaySoundAtLocation(this, JumpSound, GetActorLocation());
+    }
+
+    Super::Jump();
+}
+
 void AUQuakeCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
 {
 	if (TouchItem.bIsPressed == true)
