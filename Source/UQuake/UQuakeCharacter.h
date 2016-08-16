@@ -21,7 +21,11 @@ class AUQuakeCharacter : public ACharacter
 public:
 	AUQuakeCharacter();
 
-	virtual void BeginPlay();
+    virtual void BeginPlay();
+
+    int32 GetAmmo(EAmmoType ammoType);
+
+    void SetAmmo(EAmmoType ammoType, int32 value);
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
@@ -46,6 +50,22 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
     /** The player's jump sound */
     class USoundBase* JumpSound;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
+    /** The number of Shells the player has */
+    int32 Shells;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
+    /** The maximum number of Shells the player can carry */
+    int32 MaxShells;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
+    /** The number of Nails the player has */
+    int32 Nails;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
+    /** The maximum number of Nails the player can carry */
+    int32 MaxNails;
 
 private:
     /** The current inventory of the player */

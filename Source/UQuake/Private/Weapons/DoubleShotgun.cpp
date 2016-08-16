@@ -2,11 +2,12 @@
 
 #include "UQuake.h"
 #include "Engine.h"
+#include "UQuakeCharacter.h"
 #include "DoubleShotgun.h"
 
 void ADoubleShotgun::Fire(class AUQuakeCharacter* player)
 {
-    if (CanFire())
+    if (CanFire(player))
     {
         FireSpread(player->GetControlRotation());
         remainingReloadTime = reloadTime;

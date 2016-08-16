@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UQuake.h"
+#include "UQuakeCharacter.h"
 #include "UQuakeWeapon.h"
 
 
@@ -34,9 +35,9 @@ void AUQuakeWeapon::Fire(class AUQuakeCharacter* player)
 {
 }
 
-bool AUQuakeWeapon::CanFire()
+bool AUQuakeWeapon::CanFire(class AUQuakeCharacter* player)
 {
-    if (remainingReloadTime > 0 || currentAmmo <= 0)
+    if (remainingReloadTime > 0 || player->GetAmmo(ammoType) <= 0)
     {
         return false;
     }

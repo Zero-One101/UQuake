@@ -2,11 +2,12 @@
 
 #include "UQuake.h"
 #include "Engine.h"
+#include "UQuakeCharacter.h"
 #include "Shotgun.h"
 
 void AShotgun::Fire(class AUQuakeCharacter* player)
 {
-    if (CanFire())
+    if (CanFire(player))
     {
         FireSpread(player->GetControlRotation());
         currentAmmo--;

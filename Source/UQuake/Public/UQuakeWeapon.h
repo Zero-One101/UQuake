@@ -3,16 +3,17 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
-#include "UQuakeCharacter.h"
 #include "UQuakeProjectile.h"
 #include "UQuakeWeapon.generated.h"
+
+class AUQuakeCharacter;
 
 UENUM(BlueprintType)
 enum class EAmmoType : uint8
 {
-    ENone,
-    EShell,
-    ENail
+    ENone       UMETA(DisplayName="None"),
+    EShell      UMETA(DisplayName="Shells"),
+    ENail       UMETA(DisplayName="Nails")
 };
 
 UCLASS()
@@ -34,7 +35,7 @@ public:
 
 protected:
 
-    bool CanFire();
+    bool CanFire(class AUQuakeCharacter* player);
 
 	
 public:

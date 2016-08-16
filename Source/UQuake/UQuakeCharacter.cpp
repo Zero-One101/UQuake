@@ -64,7 +64,7 @@ void AUQuakeCharacter::SetupPlayerInputComponent(class UInputComponent* InputCom
 	// set up gameplay key bindings
 	check(InputComponent);
 
-	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+	InputComponent->BindAction("Jump", IE_Pressed, this, &AUQuakeCharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
     InputComponent->BindAction("NextWeapon", IE_Pressed, this, &AUQuakeCharacter::NextWeapon);
     InputComponent->BindAction("PrevWeapon", IE_Pressed, this, &AUQuakeCharacter::PrevWeapon);
@@ -110,6 +110,37 @@ void AUQuakeCharacter::PrevWeapon()
     }
 
     UpdateCurrentWeapon();
+}
+
+int32 AUQuakeCharacter::GetAmmo(EAmmoType ammoType)
+{
+    // TODO: Rewrite as switch statement
+    if (ammoType == EAmmoType::ENone)
+    {
+        return 1;
+    }
+    if (ammoType == EAmmoType::EShell)
+    {
+        return Shells;
+    }
+    if (ammoType == EAmmoType::ENail)
+    {
+        return Nails;
+    }
+
+    return 0;
+}
+
+void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)
+{
+    if (ammoType == EAmmoType::EShell)
+    {
+        Shells = value;
+    }
+    if (ammoType == EAmmoType::ENail)
+    {
+        Nails = value;
+    }
 }
 
 void AUQuakeCharacter::FireHeld(float Val)
