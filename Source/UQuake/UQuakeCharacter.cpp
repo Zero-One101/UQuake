@@ -114,32 +114,33 @@ void AUQuakeCharacter::PrevWeapon()
 
 int32 AUQuakeCharacter::GetAmmo(EAmmoType ammoType)
 {
-    // TODO: Rewrite as switch statement
-    if (ammoType == EAmmoType::ENone)
+    switch (ammoType)
     {
-        return 1;
+        case EAmmoType::ENone:
+            return 1;
+            break;
+        case EAmmoType::EShell:
+            return Shells;
+            break;
+        case EAmmoType::ENail:
+            return Nails;
+            break;
+        default:
+            return 0;
+            break;
     }
-    if (ammoType == EAmmoType::EShell)
-    {
-        return Shells;
-    }
-    if (ammoType == EAmmoType::ENail)
-    {
-        return Nails;
-    }
-
-    return 0;
 }
 
 void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)
 {
-    if (ammoType == EAmmoType::EShell)
+    switch (ammoType)
     {
-        Shells = value;
-    }
-    if (ammoType == EAmmoType::ENail)
-    {
-        Nails = value;
+        case EAmmoType::EShell:
+            Shells = value;
+            break;
+        case EAmmoType::ENail:
+            Nails = value;
+            break;
     }
 }
 
