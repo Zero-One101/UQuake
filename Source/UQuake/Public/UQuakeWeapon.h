@@ -39,14 +39,6 @@ protected:
 
 	
 public:
-    // The ammo currently held by the weapon
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
-    int32 currentAmmo;
-
-    // The maximum amount of ammo that can be held by the weapon
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
-    int32 maxAmmo;
-
     // The damage per round
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
     int32 damage;

@@ -16,7 +16,7 @@ class UQUAKE_API ADoubleShotgun : public AUQuakeWeapon
 public:
     virtual void Fire(class AUQuakeCharacter* player) override;
 
-    virtual void FireSpread(FRotator Rotation);
+    virtual void FireSpread(class AUQuakeCharacter* player);
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
     int32 MaxSpread;

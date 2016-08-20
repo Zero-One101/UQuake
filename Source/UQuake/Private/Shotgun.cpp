@@ -10,7 +10,7 @@ void AShotgun::Fire(class AUQuakeCharacter* player)
     if (CanFire(player))
     {
         FireSpread(player->GetControlRotation());
-        currentAmmo--;
+        player->SetAmmo(EAmmoType::EShell, player->GetAmmo(EAmmoType::EShell) - 1);
 
         if (FireSound)
         {

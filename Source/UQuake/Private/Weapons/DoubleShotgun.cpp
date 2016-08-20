@@ -9,13 +9,14 @@ void ADoubleShotgun::Fire(class AUQuakeCharacter* player)
 {
     if (CanFire(player))
     {
-        FireSpread(player->GetControlRotation());
+        FireSpread(player);
         remainingReloadTime = reloadTime;
     }
 }
 
-void ADoubleShotgun::FireSpread(FRotator Rotation)
+void ADoubleShotgun::FireSpread(class AUQuakeCharacter* player)
 {
+    FRotator Rotation = player->GetControlRotation();
     FCollisionQueryParams TraceParams = FCollisionQueryParams(false);
     TraceParams.bTraceAsyncScene = true;
     TraceParams.bReturnPhysicalMaterial = false;
@@ -42,9 +43,9 @@ void ADoubleShotgun::FireSpread(FRotator Rotation)
         }
     }
 
-    currentAmmo--;
+    player->SetAmmo(EAmmoType::EShell, player->GetAmmo(EAmmoType::EShell) - 1);
 
-    if (currentAmmo <= 0)
+    if (player->GetAmmo(EAmmoType::EShell) <= 0)
     {
         UGameplayStatics::PlaySoundAtLocation(this, SingleBarrelFire, GetActorLocation());
         return;
@@ -72,7 +73,7 @@ void ADoubleShotgun::FireSpread(FRotator Rotation)
         }
     }
 
-    currentAmmo--;
+    player->SetAmmo(EAmmoType::EShell, player->GetAmmo(EAmmoType::EShell) - 1);
 
     UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 }
