@@ -2,23 +2,17 @@
 
 #pragma once
 
-#include "UQuakeWeapon.h"
+#include "BaseShotgun.h"
 #include "Shotgun.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UQUAKE_API AShotgun : public AUQuakeWeapon
+class UQUAKE_API AShotgun : public ABaseShotgun
 {
     GENERATED_BODY()
-	
+
 public:
     virtual void Fire(class AUQuakeCharacter* player) override;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
-    int32 maxSpread;
-
-private:
-    void FireSpread(FRotator Rotation);
 };

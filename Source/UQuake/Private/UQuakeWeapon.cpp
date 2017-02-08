@@ -36,6 +36,11 @@ void AUQuakeWeapon::Fire(class AUQuakeCharacter* player)
 {
 }
 
+void AUQuakeWeapon::ConsumeAmmo(class AUQuakeCharacter* player)
+{
+    player->SetAmmo(ammoType, player->GetAmmo(ammoType) - 1);
+}
+
 bool AUQuakeWeapon::CanFire(class AUQuakeCharacter* player)
 {
     if (remainingReloadTime > 0 || player->GetAmmo(ammoType) <= 0)

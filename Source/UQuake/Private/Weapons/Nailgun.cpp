@@ -23,7 +23,7 @@ void ANailgun::Fire(class AUQuakeCharacter* player)
         }
 
         GetWorld()->SpawnActor<AUQuakeProjectile>(Projectile, SpawnLocation, SpawnRotation);
-        player->SetAmmo(EAmmoType::ENail, player->GetAmmo(EAmmoType::ENail) - 1);
+        ConsumeAmmo(player);
 
         UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 

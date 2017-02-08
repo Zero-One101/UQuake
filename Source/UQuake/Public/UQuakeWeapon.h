@@ -36,7 +36,7 @@ public:
 protected:
 
     bool CanFire(class AUQuakeCharacter* player);
-
+    void ConsumeAmmo(class AUQuakeCharacter* player);
 	
 public:
     // The damage per round

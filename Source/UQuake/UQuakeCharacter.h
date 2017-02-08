@@ -72,7 +72,6 @@ private:
     TArray<AUQuakeWeapon*> WeaponInventory;
 
     /** The currently equipped weapon */
-    UPROPERTY(Replicated)
     class AUQuakeWeapon* CurrentWeapon;
 
     /** The index of the currently equipped weapon */
@@ -93,6 +92,10 @@ protected:
     bool ServerNextWeapon_Validate();
 
     void PrevWeapon();
+    UFUNCTION(Server, Reliable, WithValidation)
+    void ServerPrevWeapon();
+    void ServerPrevWeapon_Implementation();
+    bool ServerPrevWeapon_Validate();
 
     void FireHeld(float Val);
     UFUNCTION(Server, Reliable, WithValidation)

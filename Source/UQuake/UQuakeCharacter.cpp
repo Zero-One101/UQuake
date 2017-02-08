@@ -4,7 +4,6 @@
 #include "UQuakeCharacter.h"
 #include "UQuakeProjectile.h"
 #include "Animation/AnimInstance.h"
-#include "Net/UnrealNetwork.h"
 #include "GameFramework/InputSettings.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
@@ -42,12 +41,6 @@ AUQuakeCharacter::AUQuakeCharacter()
     WeaponIndex = DefaultWeaponIndex;
 
     bReplicates = true;
-}
-
-void AUQuakeCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-    DOREPLIFETIME(AUQuakeCharacter, CurrentWeapon);
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }
 
 void AUQuakeCharacter::BeginPlay()
@@ -146,17 +139,34 @@ bool AUQuakeCharacter::ServerNextWeapon_Validate()
 
 void AUQuakeCharacter::PrevWeapon()
 {
-    auto inventoryLength = WeaponInventory.Num();
-    if (WeaponIndex == 0)
+    if (Role != ROLE_Authority)
     {
-        WeaponIndex = inventoryLength - 1;
+        ServerPrevWeapon();
     }
     else
     {
-        WeaponIndex--;
-    }
+        auto inventoryLength = WeaponInventory.Num();
+        if (WeaponIndex == 0)
+        {
+            WeaponIndex = inventoryLength - 1;
+        }
+        else
+        {
+            WeaponIndex--;
+        }
 
-    UpdateCurrentWeapon();
+        UpdateCurrentWeapon();
+    }
+}
+
+void AUQuakeCharacter::ServerPrevWeapon_Implementation()
+{
+    PrevWeapon();
+}
+
+bool AUQuakeCharacter::ServerPrevWeapon_Validate()
+{
+    return true;
 }
 
 int32 AUQuakeCharacter::GetAmmo(EAmmoType ammoType)
