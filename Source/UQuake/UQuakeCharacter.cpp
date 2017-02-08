@@ -4,6 +4,7 @@
 #include "UQuakeCharacter.h"
 #include "UQuakeProjectile.h"
 #include "Animation/AnimInstance.h"
+#include "Net/UnrealNetwork.h"
 #include "GameFramework/InputSettings.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
@@ -39,21 +40,21 @@ AUQuakeCharacter::AUQuakeCharacter()
 	// derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 
     WeaponIndex = DefaultWeaponIndex;
+
+    bReplicates = true;
+}
+
+void AUQuakeCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    DOREPLIFETIME(AUQuakeCharacter, CurrentWeapon);
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }
 
 void AUQuakeCharacter::BeginPlay()
 {
+    CreateInventory();
 	// Call the base class  
 	Super::BeginPlay();
-
-    for (auto& curWeapon : DefaultInventory)
-    {
-        AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(curWeapon);
-        WeaponInventory.Emplace(weapon);
-        weapon->SetActorHiddenInGame(true);
-    }
-
-    UpdateCurrentWeapon();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -82,19 +83,65 @@ void AUQuakeCharacter::SetupPlayerInputComponent(class UInputComponent* InputCom
 	InputComponent->BindAxis("LookUpRate", this, &AUQuakeCharacter::LookUpAtRate);
 }
 
-void AUQuakeCharacter::NextWeapon()
+void AUQuakeCharacter::CreateInventory()
 {
-    auto inventoryLength = WeaponInventory.Num();
-    if (WeaponIndex == inventoryLength - 1)
+    if (Role != ROLE_Authority)
     {
-        WeaponIndex = 0;
+        ServerCreateInventory();
     }
     else
     {
-        WeaponIndex++;
-    }
+        for (auto& curWeapon : DefaultInventory)
+        {
+            AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(curWeapon);
+            WeaponInventory.Emplace(weapon);
+            weapon->SetActorHiddenInGame(true);
+        }
 
-    UpdateCurrentWeapon();
+        UpdateCurrentWeapon();
+    }
+}
+
+void AUQuakeCharacter::ServerCreateInventory_Implementation()
+{
+    CreateInventory();
+}
+
+bool AUQuakeCharacter::ServerCreateInventory_Validate()
+{
+    return true;
+}
+
+void AUQuakeCharacter::NextWeapon()
+{
+    if (Role != ROLE_Authority)
+    {
+        ServerNextWeapon();
+    }
+    else
+    {
+        auto inventoryLength = WeaponInventory.Num();
+        if (WeaponIndex == inventoryLength - 1)
+        {
+            WeaponIndex = 0;
+        }
+        else
+        {
+            WeaponIndex++;
+        }
+
+        UpdateCurrentWeapon();
+    }
+}
+
+void AUQuakeCharacter::ServerNextWeapon_Implementation()
+{
+    NextWeapon();
+}
+
+bool AUQuakeCharacter::ServerNextWeapon_Validate()
+{
+    return true;
 }
 
 void AUQuakeCharacter::PrevWeapon()
@@ -148,8 +195,25 @@ void AUQuakeCharacter::FireHeld(float Val)
 {
     if (Val > 0)
     {
-        CurrentWeapon->Fire(this);
+        if (Role == ROLE_Authority)
+        {
+            CurrentWeapon->Fire(this);
+        }
+        else
+        {
+            ServerFireHeld(Val);
+        }
     }
+}
+
+void AUQuakeCharacter::ServerFireHeld_Implementation(float Val)
+{
+    FireHeld(Val);
+}
+
+bool AUQuakeCharacter::ServerFireHeld_Validate(float Val)
+{
+    return true;
 }
 
 void AUQuakeCharacter::Jump()

@@ -10,6 +10,8 @@ void AShotgun::Fire(class AUQuakeCharacter* player)
     if (CanFire(player))
     {
         FireSpread(player->GetControlRotation());
+
+        // TODO: Extract this out as ConsumeAmmo method. Also, why the hell did I hardcode the type here? I have a variable for that
         player->SetAmmo(EAmmoType::EShell, player->GetAmmo(EAmmoType::EShell) - 1);
 
         if (FireSound)

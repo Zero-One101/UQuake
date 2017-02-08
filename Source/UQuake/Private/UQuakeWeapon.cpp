@@ -11,6 +11,7 @@ AUQuakeWeapon::AUQuakeWeapon()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
     WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon Mesh"));
+    bReplicates = true;
 }
 
 // Called when the game starts or when spawned
