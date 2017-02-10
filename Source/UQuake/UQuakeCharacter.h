@@ -104,6 +104,10 @@ protected:
     bool ServerFireHeld_Validate(float Val);
 
     virtual void Jump() override;
+    UFUNCTION(NetMulticast, Unreliable, WithValidation)
+    void ServerPlayJumpSound();
+    void ServerPlayJumpSound_Implementation();
+    bool ServerPlayJumpSound_Validate();
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);

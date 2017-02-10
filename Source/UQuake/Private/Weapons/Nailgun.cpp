@@ -25,7 +25,7 @@ void ANailgun::Fire(class AUQuakeCharacter* player)
         GetWorld()->SpawnActor<AUQuakeProjectile>(Projectile, SpawnLocation, SpawnRotation);
         ConsumeAmmo(player);
 
-        UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+        ServerPlayFireSound();
 
         remainingReloadTime = reloadTime;
     }

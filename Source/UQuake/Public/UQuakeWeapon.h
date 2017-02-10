@@ -37,6 +37,14 @@ protected:
 
     bool CanFire(class AUQuakeCharacter* player);
     void ConsumeAmmo(class AUQuakeCharacter* player);
+    UFUNCTION(NetMulticast, Unreliable, WithValidation)
+    void ServerPlayFireSound();
+    void ServerPlayFireSound_Implementation();
+    bool ServerPlayFireSound_Validate();
+    UFUNCTION(NetMulticast, Unreliable, WithValidation)
+    void ServerPlayAltFireSound(class USoundBase* AltFireSound);
+    void ServerPlayAltFireSound_Implementation(class USoundBase* AltFireSound);
+    bool ServerPlayAltFireSound_Validate(class USoundBase* AltFireSound);
 	
 public:
     // The damage per round

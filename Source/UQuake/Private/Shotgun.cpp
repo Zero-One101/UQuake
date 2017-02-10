@@ -14,7 +14,7 @@ void AShotgun::Fire(class AUQuakeCharacter* player)
 
         if (FireSound)
         {
-            UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+            ServerPlayFireSound();
         }
 
         remainingReloadTime = reloadTime;

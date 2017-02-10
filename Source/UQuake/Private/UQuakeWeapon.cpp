@@ -36,6 +36,26 @@ void AUQuakeWeapon::Fire(class AUQuakeCharacter* player)
 {
 }
 
+void AUQuakeWeapon::ServerPlayFireSound_Implementation()
+{
+    UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+}
+
+bool AUQuakeWeapon::ServerPlayFireSound_Validate()
+{
+    return true;
+}
+
+void AUQuakeWeapon::ServerPlayAltFireSound_Implementation(class USoundBase* FireSound)
+{
+    UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+}
+
+bool AUQuakeWeapon::ServerPlayAltFireSound_Validate(class USoundBase* FireSound)
+{
+    return true;
+}
+
 void AUQuakeWeapon::ConsumeAmmo(class AUQuakeCharacter* player)
 {
     player->SetAmmo(ammoType, player->GetAmmo(ammoType) - 1);

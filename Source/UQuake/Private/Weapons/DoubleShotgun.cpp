@@ -15,12 +15,12 @@ void ADoubleShotgun::Fire(class AUQuakeCharacter* player)
 
         if (player->GetAmmo(ammoType) <= 0)
         {
-            UGameplayStatics::PlaySoundAtLocation(this, SingleBarrelFire, GetActorLocation());
+            ServerPlayAltFireSound(SingleBarrelFire);
             return;
         }
 
         FireSpread(player->GetControlRotation(), WeaponMesh->GetSocketLocation("MuzzleRight"));
         ConsumeAmmo(player);
-        UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+        ServerPlayFireSound();
     }
 }

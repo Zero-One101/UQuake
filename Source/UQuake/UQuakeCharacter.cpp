@@ -230,10 +230,20 @@ void AUQuakeCharacter::Jump()
 {
     if (CanJump())
     {
-        UGameplayStatics::PlaySoundAtLocation(this, JumpSound, GetActorLocation());
+        ServerPlayJumpSound();
     }
 
     Super::Jump();
+}
+
+void AUQuakeCharacter::ServerPlayJumpSound_Implementation()
+{
+    UGameplayStatics::PlaySoundAtLocation(this, JumpSound, GetActorLocation());
+}
+
+bool AUQuakeCharacter::ServerPlayJumpSound_Validate()
+{
+    return true;
 }
 
 void AUQuakeCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
