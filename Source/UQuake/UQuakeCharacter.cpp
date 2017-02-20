@@ -86,13 +86,18 @@ void AUQuakeCharacter::CreateInventory()
     {
         for (auto& curWeapon : DefaultInventory)
         {
-            AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(curWeapon);
-            WeaponInventory.Emplace(weapon);
-            weapon->SetActorHiddenInGame(true);
+            AddWeapon(curWeapon);
         }
 
         UpdateCurrentWeapon();
     }
+}
+
+void AUQuakeCharacter::AddWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
+{
+    AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(WeaponClass);
+    WeaponInventory.Emplace(weapon);
+    weapon->SetActorHiddenInGame(true);
 }
 
 void AUQuakeCharacter::ServerCreateInventory_Implementation()
@@ -194,9 +199,17 @@ void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)
     {
         case EAmmoType::EShell:
             Shells = value;
+            if (Shells > MaxShells)
+            {
+                Shells = MaxShells;
+            }
             break;
         case EAmmoType::ENail:
             Nails = value;
+            if (Nails > MaxNails)
+            {
+                Nails = MaxNails;
+            }
             break;
     }
 }
@@ -244,6 +257,51 @@ void AUQuakeCharacter::ServerPlayJumpSound_Implementation()
 bool AUQuakeCharacter::ServerPlayJumpSound_Validate()
 {
     return true;
+}
+
+bool AUQuakeCharacter::PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
+{
+    bool weaponExists = false;
+    for (auto& weapon : WeaponInventory)
+    {
+        if (weapon->GetClass() == WeaponClass)
+        {
+            weaponExists = true;
+            break;
+        }
+    }
+
+    if (weaponExists)
+    {
+        EAmmoType weaponAmmoType = WeaponClass.GetDefaultObject()->ammoType;
+        if (GetAmmo(weaponAmmoType) == GetMaxAmmo(weaponAmmoType))
+        {
+            // We already have the weapon and full ammo, so we shouldn't pick it up
+            return false;
+        }
+        else
+        {
+            SetAmmo(weaponAmmoType, GetAmmo(weaponAmmoType) + 20);
+            return true;
+        }
+    }
+
+    // If the weapon doesn't exist, create it
+    AddWeapon(WeaponClass);
+    return true;
+}
+
+int32 AUQuakeCharacter::GetMaxAmmo(EAmmoType ammoType)
+{
+    switch (ammoType)
+    {
+        case EAmmoType::EShell:
+            return MaxShells;
+        case EAmmoType::ENail:
+            return MaxNails;
+        default:
+            return 0;
+    }
 }
 
 void AUQuakeCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)

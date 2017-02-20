@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UQuake.h"
-#include "Engine.h"
+#include "UQuakeCharacter.h"
 #include "BaseWeaponPickup.h"
 
 ABaseWeaponPickup::ABaseWeaponPickup()
@@ -12,5 +12,20 @@ ABaseWeaponPickup::ABaseWeaponPickup()
 
 void ABaseWeaponPickup::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString("Overlapping!"));
+    if (OtherActor->IsA(AUQuakeCharacter::StaticClass()))
+    {
+        AUQuakeCharacter* player = Cast<AUQuakeCharacter>(OtherActor);
+        if (player)
+        {
+            if (player->PickupWeapon(Weapon))
+            {
+                if (PickupSound)
+                {
+                    UGameplayStatics::PlaySoundAtLocation(this, PickupSound, GetActorLocation());
+                }
+
+                Destroy();
+            }
+        }
+    }
 }

@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UQuake.h"
-#include "Engine.h"
 #include "BasePickup.h"
 
 
@@ -15,7 +14,6 @@ ABasePickup::ABasePickup()
     BoxCollision->SetupAttachment(RootComponent);
     BoxCollision->bGenerateOverlapEvents = true;
     BoxCollision->SetCollisionProfileName(FName("OverlapAll"));
-    BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &ABasePickup::OnOverlapBegin);
     RotatingMovementComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("RotatingMovementComponent"));
 }
 
@@ -29,10 +27,4 @@ void ABasePickup::BeginPlay()
 void ABasePickup::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-}
-
-void ABasePickup::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(TEXT("Uh oh")));
-    Destroy();
 }

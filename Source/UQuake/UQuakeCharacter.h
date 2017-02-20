@@ -27,6 +27,8 @@ public:
 
     void SetAmmo(EAmmoType ammoType, int32 value);
 
+    bool PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
@@ -77,6 +79,8 @@ private:
     /** The index of the currently equipped weapon */
     int32 WeaponIndex;
 
+    void AddWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
+
 
 protected:
     void CreateInventory();
@@ -109,6 +113,7 @@ protected:
     void ServerPlayJumpSound_Implementation();
     bool ServerPlayJumpSound_Validate();
 
+    int32 GetMaxAmmo(EAmmoType ammoType);
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
 
