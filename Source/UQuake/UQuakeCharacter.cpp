@@ -193,6 +193,16 @@ int32 AUQuakeCharacter::GetAmmo(EAmmoType ammoType)
     }
 }
 
+int32 AUQuakeCharacter::GetCurrentWeaponAmmo()
+{
+    return GetAmmo(CurrentWeapon->ammoType);
+}
+
+int32 AUQuakeCharacter::GetCurrentWeaponMaxAmmo()
+{
+    return GetMaxAmmo(CurrentWeapon->ammoType);
+}
+
 void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)
 {
     switch (ammoType)

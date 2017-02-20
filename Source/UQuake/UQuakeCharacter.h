@@ -23,7 +23,14 @@ public:
 
     virtual void BeginPlay();
 
+    UFUNCTION(BlueprintCallable, Category = Ammo)
     int32 GetAmmo(EAmmoType ammoType);
+
+    UFUNCTION(BlueprintCallable, Category = Ammo)
+    int32 GetCurrentWeaponAmmo();
+
+    UFUNCTION(BlueprintCallable, Category = Ammo)
+    int32 GetCurrentWeaponMaxAmmo();
 
     void SetAmmo(EAmmoType ammoType, int32 value);
 

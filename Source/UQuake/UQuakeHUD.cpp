@@ -13,6 +13,11 @@ AUQuakeHUD::AUQuakeHUD()
 	CrosshairTex = CrosshiarTexObj.Object;
 }
 
+void AUQuakeHUD::BeginPlay()
+{
+    Super::BeginPlay();
+    Player = Cast<AUQuakeCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
+}
 
 void AUQuakeHUD::DrawHUD()
 {
@@ -31,5 +36,12 @@ void AUQuakeHUD::DrawHUD()
 	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
 	TileItem.BlendMode = SE_BLEND_Translucent;
 	Canvas->DrawItem( TileItem );
+
+    // Draw ammo
+    if (Player.IsValid())
+    {
+        FString CurrentAmmoString = FString::FromInt(Player->GetCurrentWeaponAmmo()) + "/" + FString::FromInt(Player->GetCurrentWeaponMaxAmmo());
+        DrawText(CurrentAmmoString, FColor::White, 50, 50, Font);
+    }
 }
 
