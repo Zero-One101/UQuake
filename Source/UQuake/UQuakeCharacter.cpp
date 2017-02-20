@@ -4,6 +4,7 @@
 #include "UQuakeCharacter.h"
 #include "UQuakeProjectile.h"
 #include "Animation/AnimInstance.h"
+#include "UnrealNetwork.h"
 #include "GameFramework/InputSettings.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
@@ -41,6 +42,16 @@ AUQuakeCharacter::AUQuakeCharacter()
     WeaponIndex = DefaultWeaponIndex;
 
     bReplicates = true;
+}
+
+void AUQuakeCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+    DOREPLIFETIME(AUQuakeCharacter, CurrentWeapon);
+    DOREPLIFETIME(AUQuakeCharacter, WeaponInventory);
+    DOREPLIFETIME(AUQuakeCharacter, Shells);
+    DOREPLIFETIME(AUQuakeCharacter, Nails);
 }
 
 void AUQuakeCharacter::BeginPlay()
@@ -195,12 +206,22 @@ int32 AUQuakeCharacter::GetAmmo(EAmmoType ammoType)
 
 int32 AUQuakeCharacter::GetCurrentWeaponAmmo()
 {
-    return GetAmmo(CurrentWeapon->ammoType);
+    if (CurrentWeapon != nullptr)
+    {
+        return GetAmmo(CurrentWeapon->ammoType);
+    }
+
+    return 0;
 }
 
 int32 AUQuakeCharacter::GetCurrentWeaponMaxAmmo()
 {
-    return GetMaxAmmo(CurrentWeapon->ammoType);
+    if (CurrentWeapon != nullptr)
+    {
+        return GetMaxAmmo(CurrentWeapon->ammoType);
+    }
+
+    return 0;
 }
 
 void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)

@@ -60,7 +60,7 @@ public:
     /** The player's jump sound */
     class USoundBase* JumpSound;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Ammo)
     /** The number of Shells the player has */
     int32 Shells;
 
@@ -68,7 +68,7 @@ public:
     /** The maximum number of Shells the player can carry */
     int32 MaxShells;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Ammo)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Ammo)
     /** The number of Nails the player has */
     int32 Nails;
 
@@ -78,9 +78,11 @@ public:
 
 private:
     /** The current inventory of the player */
+    UPROPERTY(Replicated)
     TArray<AUQuakeWeapon*> WeaponInventory;
 
     /** The currently equipped weapon */
+    UPROPERTY(Replicated)
     class AUQuakeWeapon* CurrentWeapon;
 
     /** The index of the currently equipped weapon */
