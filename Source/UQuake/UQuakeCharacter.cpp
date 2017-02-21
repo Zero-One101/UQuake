@@ -335,6 +335,48 @@ bool AUQuakeCharacter::PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
     return true;
 }
 
+bool AUQuakeCharacter::PickupArmour(int32 Armour, bool CanExceedMax)
+{
+    if (((this->Armour >= MaxArmour) && !CanExceedMax) || this->Armour == OverchargedMaxArmour)
+    {
+        return false;
+    }
+
+    if (this->Armour < MaxArmour && !CanExceedMax)
+    {
+        this->Armour += Armour;
+        this->Armour = FMath::Clamp(this->Armour, 0, MaxArmour);
+    }
+    else if (CanExceedMax)
+    {
+        this->Armour += Armour;
+        this->Armour = FMath::Clamp(this->Armour, 0, OverchargedMaxArmour);
+    }
+
+    return true;
+}
+
+bool AUQuakeCharacter::PickupHealth(int32 Health, bool CanExceedMax)
+{
+    if (((this->Health >= MaxHealth) && !CanExceedMax) || this->Health == OverchargedMaxHealth)
+    {
+        return false;
+    }
+
+    if (this->Health < MaxHealth && !CanExceedMax)
+    {
+        this->Health += Health;
+        this->Health = FMath::Clamp(this->Health, 0, MaxHealth);
+    }
+    else if (CanExceedMax)
+    {
+        this->Health += Health;
+        this->Health = FMath::Clamp(this->Health, 0, OverchargedMaxHealth);
+    }
+
+    return true;
+}
+
 int32 AUQuakeCharacter::GetMaxAmmo(EAmmoType ammoType)
 {
     switch (ammoType)

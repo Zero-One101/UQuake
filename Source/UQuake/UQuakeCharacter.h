@@ -47,6 +47,12 @@ public:
     /** Handles overlapping with a WeaponPickup class */
     bool PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
 
+    /** Handles overlapping with an ArmourPickup class */
+    bool PickupArmour(int32 Armour, bool CanExceedMax);
+
+    /** Handles overlapping with a HealthPickup class */
+    bool PickupHealth(int32 Health, bool CanExceedMax);
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
@@ -78,6 +84,14 @@ public:
     /** The maximum health of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
     int32 MaxHealth;
+
+    /** The overcharged maximum health of the player */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
+    int32 OverchargedMaxHealth;
+
+    /** The overcharged maximum armour of the player */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
+    int32 OverchargedMaxArmour;
 
     /** The current armour of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
