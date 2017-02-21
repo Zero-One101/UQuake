@@ -107,9 +107,12 @@ void AUQuakeCharacter::CreateInventory()
 void AUQuakeCharacter::AddWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
 {
     AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(WeaponClass);
-    WeaponInventory.Emplace(weapon);
-    weapon->SetActorHiddenInGame(true);
-    SetAmmo(weapon->AmmoType, GetAmmo(weapon->AmmoType) + weapon->DefaultAmmo);
+    if (weapon)
+    {
+        WeaponInventory.Emplace(weapon);
+        weapon->SetActorHiddenInGame(true);
+        SetAmmo(weapon->AmmoType, GetAmmo(weapon->AmmoType) + weapon->DefaultAmmo);
+    }
 }
 
 void AUQuakeCharacter::ServerCreateInventory_Implementation()
@@ -300,7 +303,7 @@ bool AUQuakeCharacter::PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
     bool weaponExists = false;
     for (auto& weapon : WeaponInventory)
     {
-        if (weapon->GetClass() == WeaponClass)
+        if (weapon && weapon->GetClass() == WeaponClass)
         {
             weaponExists = true;
             break;

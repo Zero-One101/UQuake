@@ -103,11 +103,11 @@ public:
     /** The maximum number of Nails the player can carry */
     int32 MaxNails;
 
-private:
     /** The current inventory of the player */
     UPROPERTY(Replicated)
     TArray<AUQuakeWeapon*> WeaponInventory;
 
+private:
     /** The currently equipped weapon */
     UPROPERTY(Replicated)
     class AUQuakeWeapon* CurrentWeapon;
