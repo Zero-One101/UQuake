@@ -27,6 +27,6 @@ void ANailgun::Fire(class AUQuakeCharacter* player)
 
         ServerPlayFireSound();
 
-        remainingReloadTime = reloadTime;
+        RemainingReloadTime = ReloadTime;
     }
 }

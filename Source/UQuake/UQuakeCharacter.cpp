@@ -109,7 +109,7 @@ void AUQuakeCharacter::AddWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
     AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(WeaponClass);
     WeaponInventory.Emplace(weapon);
     weapon->SetActorHiddenInGame(true);
-    SetAmmo(weapon->ammoType, GetAmmo(weapon->ammoType) + weapon->DefaultAmmo);
+    SetAmmo(weapon->AmmoType, GetAmmo(weapon->AmmoType) + weapon->DefaultAmmo);
 }
 
 void AUQuakeCharacter::ServerCreateInventory_Implementation()
@@ -209,7 +209,7 @@ int32 AUQuakeCharacter::GetCurrentWeaponAmmo()
 {
     if (CurrentWeapon != nullptr)
     {
-        return GetAmmo(CurrentWeapon->ammoType);
+        return GetAmmo(CurrentWeapon->AmmoType);
     }
 
     return 0;
@@ -219,7 +219,7 @@ int32 AUQuakeCharacter::GetCurrentWeaponMaxAmmo()
 {
     if (CurrentWeapon != nullptr)
     {
-        return GetMaxAmmo(CurrentWeapon->ammoType);
+        return GetMaxAmmo(CurrentWeapon->AmmoType);
     }
 
     return 0;
@@ -309,7 +309,7 @@ bool AUQuakeCharacter::PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
 
     if (weaponExists)
     {
-        EAmmoType weaponAmmoType = WeaponClass.GetDefaultObject()->ammoType;
+        EAmmoType weaponAmmoType = WeaponClass.GetDefaultObject()->AmmoType;
         if (GetAmmo(weaponAmmoType) == GetMaxAmmo(weaponAmmoType))
         {
             // We already have the weapon and full ammo, so we shouldn't pick it up

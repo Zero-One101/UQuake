@@ -11,9 +11,9 @@ void ADoubleShotgun::Fire(class AUQuakeCharacter* player)
     {
         FireSpread(player->GetControlRotation(), WeaponMesh->GetSocketLocation("MuzzleLeft"));
         ConsumeAmmo(player);
-        remainingReloadTime = reloadTime;
+        RemainingReloadTime = ReloadTime;
 
-        if (player->GetAmmo(ammoType) <= 0)
+        if (player->GetAmmo(AmmoType) <= 0)
         {
             ServerPlayAltFireSound(SingleBarrelFire);
             return;

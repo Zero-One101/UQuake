@@ -17,7 +17,7 @@ void ABaseShotgun::FireSpread(FRotator Rotation, FVector MuzzleLocation)
     {
         FVector Spread = FVector(0, FMath::RandRange(-maxSpread, maxSpread), FMath::RandRange(-maxSpread, maxSpread));
         Spread = RotMatrix.TransformVector(Spread);
-        auto End = Rotation.Vector() * range + MuzzleLocation + Spread;
+        auto End = Rotation.Vector() * Range + MuzzleLocation + Spread;
         GetWorld()->LineTraceSingleByChannel(Hit, MuzzleLocation, End, ECC_Visibility, TraceParams);
 
         if (Hit.bBlockingHit)

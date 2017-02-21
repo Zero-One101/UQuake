@@ -31,14 +31,14 @@ public:
     // Called every frame
     virtual void Tick( float DeltaSeconds ) override;
 
-    virtual void Fire(class AUQuakeCharacter* player);
+    virtual void Fire(class AUQuakeCharacter* Player);
 
 protected:
     /** Returns whether or not the weapon is able to fire */
-    bool CanFire(class AUQuakeCharacter* player);
+    bool CanFire(class AUQuakeCharacter* Player);
 
     /** Decrements weapon ammo */
-    void ConsumeAmmo(class AUQuakeCharacter* player);
+    void ConsumeAmmo(class AUQuakeCharacter* Player);
 
     /** Plays the weapon fire sound */
     UFUNCTION(NetMulticast, Unreliable, WithValidation)
@@ -55,19 +55,19 @@ protected:
 public:
     /** The damage per round */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
-    int32 damage;
+    int32 Damage;
 
     /** The range of the projectiles, if applicable */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
-    int32 range;
+    int32 Range;
 
     /** The time between shots */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Weapon)
-    float reloadTime;
+    float ReloadTime;
 
     /** The type of ammo the weapon consumes */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Weapon)
-    EAmmoType ammoType;
+    EAmmoType AmmoType;
 
     /** The skeletal mesh representing the weapon */
     UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
@@ -87,5 +87,5 @@ public:
 
 protected:
     /** The time until the weapon can fire again */
-    float remainingReloadTime;
+    float RemainingReloadTime;
 };

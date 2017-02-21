@@ -42,7 +42,7 @@ public:
     int32 GetArmour();
 
     /** Sets the ammo count of the specified ammo type to the specified value, clamping between 0 and max */
-    void SetAmmo(EAmmoType ammoType, int32 value);
+    void SetAmmo(EAmmoType AmmoType, int32 Value);
 
     /** Handles overlapping with a WeaponPickup class */
     bool PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
@@ -154,7 +154,7 @@ protected:
     bool ServerPlayJumpSound_Validate();
 
     /** Returns the maximum ammo capacity of the specified ammo type */
-    int32 GetMaxAmmo(EAmmoType ammoType);
+    int32 GetMaxAmmo(EAmmoType AmmoType);
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);

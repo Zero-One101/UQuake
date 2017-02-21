@@ -17,6 +17,6 @@ void AShotgun::Fire(class AUQuakeCharacter* player)
             ServerPlayFireSound();
         }
 
-        remainingReloadTime = reloadTime;
+        RemainingReloadTime = ReloadTime;
     }
 }

@@ -26,9 +26,9 @@ void AUQuakeWeapon::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
-    if (remainingReloadTime > 0)
+    if (RemainingReloadTime > 0)
     {
-        remainingReloadTime -= DeltaTime;
+        RemainingReloadTime -= DeltaTime;
     }
 }
 
@@ -58,12 +58,12 @@ bool AUQuakeWeapon::ServerPlayAltFireSound_Validate(class USoundBase* FireSound)
 
 void AUQuakeWeapon::ConsumeAmmo(class AUQuakeCharacter* player)
 {
-    player->SetAmmo(ammoType, player->GetAmmo(ammoType) - 1);
+    player->SetAmmo(AmmoType, player->GetAmmo(AmmoType) - 1);
 }
 
 bool AUQuakeWeapon::CanFire(class AUQuakeCharacter* player)
 {
-    if (remainingReloadTime > 0 || player->GetAmmo(ammoType) <= 0)
+    if (RemainingReloadTime > 0 || player->GetAmmo(AmmoType) <= 0)
     {
         return false;
     }
