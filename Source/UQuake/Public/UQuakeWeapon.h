@@ -81,6 +81,10 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
     TSubclassOf<AUQuakeProjectile> Projectile;
 
+    /** The default amount of ammo the weapon holds */
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
+    int32 DefaultAmmo;
+
 protected:
     /** The time until the weapon can fire again */
     float remainingReloadTime;

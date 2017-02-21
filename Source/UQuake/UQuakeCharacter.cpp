@@ -109,6 +109,7 @@ void AUQuakeCharacter::AddWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
     AUQuakeWeapon *weapon = GetWorld()->SpawnActor<AUQuakeWeapon>(WeaponClass);
     WeaponInventory.Emplace(weapon);
     weapon->SetActorHiddenInGame(true);
+    SetAmmo(weapon->ammoType, GetAmmo(weapon->ammoType) + weapon->DefaultAmmo);
 }
 
 void AUQuakeCharacter::ServerCreateInventory_Implementation()
@@ -230,17 +231,11 @@ void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)
     {
         case EAmmoType::EShell:
             Shells = value;
-            if (Shells > MaxShells)
-            {
-                Shells = MaxShells;
-            }
+            Shells = FMath::Clamp(Shells, 0, MaxShells);
             break;
         case EAmmoType::ENail:
             Nails = value;
-            if (Nails > MaxNails)
-            {
-                Nails = MaxNails;
-            }
+            Nails = FMath::Clamp(Nails, 0, MaxNails);
             break;
     }
 }
@@ -322,7 +317,7 @@ bool AUQuakeCharacter::PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
         }
         else
         {
-            SetAmmo(weaponAmmoType, GetAmmo(weaponAmmoType) + 20);
+            SetAmmo(weaponAmmoType, GetAmmo(weaponAmmoType) + WeaponClass.GetDefaultObject()->DefaultAmmo);
             return true;
         }
     }
