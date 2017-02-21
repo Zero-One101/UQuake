@@ -48,6 +48,7 @@ void AUQuakeCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
+    DOREPLIFETIME(AUQuakeCharacter, DefaultInventory);
     DOREPLIFETIME(AUQuakeCharacter, CurrentWeapon);
     DOREPLIFETIME(AUQuakeCharacter, WeaponInventory);
     DOREPLIFETIME(AUQuakeCharacter, Shells);
@@ -97,7 +98,11 @@ void AUQuakeCharacter::CreateInventory()
     {
         for (auto& curWeapon : DefaultInventory)
         {
-            AddWeapon(curWeapon);
+            if (curWeapon)
+            {
+                // TODO: Find out why the second player is creating a null weapon
+                AddWeapon(curWeapon);
+            }
         }
 
         UpdateCurrentWeapon();

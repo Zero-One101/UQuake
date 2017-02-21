@@ -60,7 +60,7 @@ public:
 	class UAnimMontage* FireAnimation;
 
     /** The starting inventory of the player */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Inventory)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Inventory)
     TArray<TSubclassOf<class AUQuakeWeapon>> DefaultInventory;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Inventory)
@@ -104,7 +104,7 @@ public:
     int32 MaxNails;
 
     /** The current inventory of the player */
-    UPROPERTY(Replicated)
+    UPROPERTY(VisibleAnywhere, Replicated, Category = Inventory)
     TArray<AUQuakeWeapon*> WeaponInventory;
 
 private:
