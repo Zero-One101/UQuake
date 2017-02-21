@@ -37,11 +37,19 @@ void AUQuakeHUD::DrawHUD()
 	TileItem.BlendMode = SE_BLEND_Translucent;
 	Canvas->DrawItem( TileItem );
 
-    // Draw ammo
     if (Player.IsValid())
     {
+        // Draw Armour
+        FString CurrentArmourString = FString::FromInt(Player->GetArmour());
+        DrawText(CurrentArmourString, FontColour, Canvas->ClipX * ArmourTextLocation.X, Canvas->ClipY * ArmourTextLocation.Y, LargeFont);
+
+        // Draw Health
+        FString CurrentHealthString = FString::FromInt(Player->GetHealth());
+        DrawText(CurrentHealthString, FontColour, Canvas->ClipX * HealthTextLocation.X, Canvas->ClipY * HealthTextLocation.Y, LargeFont);
+
+        // Draw Ammo
         FString CurrentAmmoString = FString::FromInt(Player->GetCurrentWeaponAmmo()) + "/" + FString::FromInt(Player->GetCurrentWeaponMaxAmmo());
-        DrawText(CurrentAmmoString, FColor::White, 50, 50, Font);
+        DrawText(CurrentAmmoString, FontColour, Canvas->ClipX * AmmoTextLocation.X, Canvas->ClipY * AmmoTextLocation.Y, LargeFont);
     }
 }
 

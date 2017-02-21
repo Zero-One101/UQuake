@@ -17,8 +17,23 @@ public:
 	/** Primary draw call for the HUD */
 	virtual void DrawHUD() override;
 
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Font)
-    UFont* Font;
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Font | Fonts")
+    UFont* SmallFont;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Font | Fonts")
+    UFont* LargeFont;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Font | Fonts")
+    FColor FontColour;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Font | Position")
+    FVector2D ArmourTextLocation;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Font | Position")
+    FVector2D HealthTextLocation;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Font | Position")
+    FVector2D AmmoTextLocation;
 
 private:
 	/** Crosshair asset pointer */

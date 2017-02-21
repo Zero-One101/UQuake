@@ -245,6 +245,16 @@ void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)
     }
 }
 
+int32 AUQuakeCharacter::GetHealth()
+{
+    return Health;
+}
+
+int32 AUQuakeCharacter::GetArmour()
+{
+    return Armour;
+}
+
 void AUQuakeCharacter::FireHeld(float Val)
 {
     if (Val > 0)

@@ -32,6 +32,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = Ammo)
     int32 GetCurrentWeaponMaxAmmo();
 
+    int32 GetHealth();
+
+    int32 GetArmour();
+
     void SetAmmo(EAmmoType ammoType, int32 value);
 
     bool PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
@@ -59,6 +63,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
     /** The player's jump sound */
     class USoundBase* JumpSound;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
+    int32 Health;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
+    int32 MaxHealth;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
+    int32 Armour;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
+    int32 MaxArmour;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Ammo)
     /** The number of Shells the player has */
