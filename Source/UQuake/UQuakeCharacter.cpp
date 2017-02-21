@@ -457,11 +457,21 @@ void AUQuakeCharacter::MoveForward(float Value)
 
 void AUQuakeCharacter::MoveRight(float Value)
 {
+    FirstPersonCameraComponent->SetWorldRotation(GetViewRotation());
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
+        FRotator CameraRotation = FirstPersonCameraComponent->GetComponentRotation();
+        CameraRotation.Roll = 1 * Value;
+        FirstPersonCameraComponent->SetWorldRotation(CameraRotation);
 	}
+    else
+    {
+        FRotator CameraRotation = FirstPersonCameraComponent->GetComponentRotation();
+        CameraRotation.Roll = 0;
+        FirstPersonCameraComponent->SetWorldRotation(CameraRotation);
+    }
 }
 
 void AUQuakeCharacter::TurnAtRate(float Rate)
