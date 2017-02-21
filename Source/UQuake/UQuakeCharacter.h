@@ -23,21 +23,28 @@ public:
 
     virtual void BeginPlay();
 
+    /** Returns the ammo count of the specified ammo type */
     UFUNCTION(BlueprintCallable, Category = Ammo)
     int32 GetAmmo(EAmmoType ammoType);
 
+    /** Returns the ammo count of the currently equipped weapon */
     UFUNCTION(BlueprintCallable, Category = Ammo)
     int32 GetCurrentWeaponAmmo();
 
+    /** Returns the maximum ammo of the currently equipped weapon */
     UFUNCTION(BlueprintCallable, Category = Ammo)
     int32 GetCurrentWeaponMaxAmmo();
 
+    /** Returns the player's current health */
     int32 GetHealth();
 
+    /** Returns the player's current armour */
     int32 GetArmour();
 
+    /** Sets the ammo count of the specified ammo type to the specified value, clamping between 0 and max */
     void SetAmmo(EAmmoType ammoType, int32 value);
 
+    /** Handles overlapping with a WeaponPickup class */
     bool PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
@@ -64,15 +71,19 @@ public:
     /** The player's jump sound */
     class USoundBase* JumpSound;
 
+    /** The current health of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
     int32 Health;
 
+    /** The maximum health of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
     int32 MaxHealth;
 
+    /** The current armour of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
     int32 Armour;
 
+    /** The maximum armour of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
     int32 MaxArmour;
 
@@ -104,22 +115,26 @@ private:
     /** The index of the currently equipped weapon */
     int32 WeaponIndex;
 
+    /** Creates an instance of the specified weapon class and adds it to the inventory */
     void AddWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
 
 
 protected:
+    /** Creates the default inventory */
     void CreateInventory();
     UFUNCTION(Server, Reliable, WithValidation)
     void ServerCreateInventory();
     void ServerCreateInventory_Implementation();
     bool ServerCreateInventory_Validate();
 
+    /** Switches to the next weapon in the inventory */
     void NextWeapon();
     UFUNCTION(Server, Reliable, WithValidation)
     void ServerNextWeapon();
     void ServerNextWeapon_Implementation();
     bool ServerNextWeapon_Validate();
 
+    /** Switches to the previous weapon in the inventory */
     void PrevWeapon();
     UFUNCTION(Server, Reliable, WithValidation)
     void ServerPrevWeapon();
@@ -138,7 +153,9 @@ protected:
     void ServerPlayJumpSound_Implementation();
     bool ServerPlayJumpSound_Validate();
 
+    /** Returns the maximum ammo capacity of the specified ammo type */
     int32 GetMaxAmmo(EAmmoType ammoType);
+
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
 

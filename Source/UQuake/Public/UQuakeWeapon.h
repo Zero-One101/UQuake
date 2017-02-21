@@ -34,44 +34,54 @@ public:
     virtual void Fire(class AUQuakeCharacter* player);
 
 protected:
-
+    /** Returns whether or not the weapon is able to fire */
     bool CanFire(class AUQuakeCharacter* player);
+
+    /** Decrements weapon ammo */
     void ConsumeAmmo(class AUQuakeCharacter* player);
+
+    /** Plays the weapon fire sound */
     UFUNCTION(NetMulticast, Unreliable, WithValidation)
     void ServerPlayFireSound();
     void ServerPlayFireSound_Implementation();
     bool ServerPlayFireSound_Validate();
+
+    /** Plays the weapon alt-fire sound */
     UFUNCTION(NetMulticast, Unreliable, WithValidation)
     void ServerPlayAltFireSound(class USoundBase* AltFireSound);
     void ServerPlayAltFireSound_Implementation(class USoundBase* AltFireSound);
     bool ServerPlayAltFireSound_Validate(class USoundBase* AltFireSound);
 	
 public:
-    // The damage per round
+    /** The damage per round */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
     int32 damage;
 
-    // The range of the projectiles, if applicable
+    /** The range of the projectiles, if applicable */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
     int32 range;
 
-    // The time between shots
+    /** The time between shots */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Weapon)
     float reloadTime;
 
+    /** The type of ammo the weapon consumes */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Weapon)
     EAmmoType ammoType;
 
+    /** The skeletal mesh representing the weapon */
     UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
     class USkeletalMeshComponent* WeaponMesh;
 
+    /** The sound to play when the weapon fires */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Audio)
     class USoundBase* FireSound;
 
+    /** The projectile class of the weapon, if applicable */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Ammo)
     TSubclassOf<AUQuakeProjectile> Projectile;
 
 protected:
-    // The time until the weapon can fire again
+    /** The time until the weapon can fire again */
     float remainingReloadTime;
 };

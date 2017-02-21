@@ -17,9 +17,11 @@ public:
     ABaseWeaponPickup();
 
 protected:
+    /** The weapon class the pickup represents */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Weapon)
     TSubclassOf<class AUQuakeWeapon> Weapon;
 
+    /** The skeletal mesh that represents the weapon */
     UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
     class USkeletalMeshComponent* WeaponMesh;
 

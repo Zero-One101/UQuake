@@ -23,13 +23,15 @@ public:
 	virtual void Tick( float DeltaSeconds ) override;
 
 protected:
-
+    /** Makes the pickup rotate */
     UPROPERTY(VisibleDefaultsOnly, Category = Movement)
     class URotatingMovementComponent* RotatingMovementComponent;
 
+    /** The trigger for the pickup */
     UPROPERTY(VisibleDefaultsOnly, Category = Collision)
     class UBoxComponent* BoxCollision;
 
+    /** The sound to play on pickup */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Audio)
     class USoundBase* PickupSound;
 };
