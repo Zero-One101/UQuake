@@ -23,4 +23,10 @@ protected:
 
     UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = Mesh)
     class UStaticMeshComponent* HealthMesh;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Health)
+    int32 HealthValue;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Health)
+    bool CanExceedMax;
 };
