@@ -2,6 +2,7 @@
 #pragma once
 #include "GameFramework/Character.h"
 #include "UQuakeWeapon.h"
+#include "BaseArmourPickup.h"
 #include "UQuakeCharacter.generated.h"
 
 class UInputComponent;
@@ -48,7 +49,7 @@ public:
     bool PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
 
     /** Handles overlapping with an ArmourPickup class */
-    bool PickupArmour(int32 Armour, bool CanExceedMax);
+    bool PickupArmour(int32 Armour, EArmourType ArmourType);
 
     /** Handles overlapping with a HealthPickup class */
     bool PickupHealth(int32 Health, bool CanExceedMax);
@@ -89,17 +90,13 @@ public:
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
     int32 OverchargedMaxHealth;
 
-    /** The overcharged maximum armour of the player */
+    /** The type of armour the player is currently wearing */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
-    int32 OverchargedMaxArmour;
+    EArmourType ArmourType = EArmourType::ENone;
 
     /** The current armour of the player */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
     int32 Armour;
-
-    /** The maximum armour of the player */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Player)
-    int32 MaxArmour;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Ammo)
     /** The number of Shells the player has */

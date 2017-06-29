@@ -8,6 +8,15 @@
 /**
  * 
  */
+UENUM()
+enum class EArmourType : uint8
+{
+    ENone           UMETA(DisplayName = "None"),
+    EGreen          UMETA(DisplayName = "Green"),
+    EYellow         UMETA(DisplayName = "Yellow"),
+    ERed            UMETA(DisplayName = "Red")
+};
+
 UCLASS()
 class UQUAKE_API ABaseArmourPickup : public ABasePickup
 {
@@ -24,7 +33,7 @@ protected:
     int32 ArmourValue;
 
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Armour")
-    bool CanExceedMax;
+    EArmourType ArmourType;
 
     UFUNCTION()
     void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class UQuakeEditorTarget : TargetRules
 {
-	public UQuakeEditorTarget(TargetInfo Target)
+	public UQuakeEditorTarget(TargetInfo Target) : base()
 	{
 		Type = TargetType.Editor;
 	}

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class UQuakeTarget : TargetRules
 {
-	public UQuakeTarget(TargetInfo Target)
+	public UQuakeTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 	}

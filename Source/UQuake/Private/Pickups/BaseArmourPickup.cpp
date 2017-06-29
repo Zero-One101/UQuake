@@ -18,7 +18,7 @@ void ABaseArmourPickup::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
         AUQuakeCharacter* Player = Cast<AUQuakeCharacter>(OtherActor);
         if (Player)
         {
-            if (Player->PickupArmour(ArmourValue, CanExceedMax))
+            if (Player->PickupArmour(ArmourValue, ArmourType))
             {
                 UGameplayStatics::PlaySoundAtLocation(this, PickupSound, GetActorLocation());
                 Destroy();

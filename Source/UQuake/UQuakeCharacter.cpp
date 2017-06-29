@@ -335,25 +335,22 @@ bool AUQuakeCharacter::PickupWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass)
     return true;
 }
 
-bool AUQuakeCharacter::PickupArmour(int32 Armour, bool CanExceedMax)
+bool AUQuakeCharacter::PickupArmour(int32 Armour, EArmourType ArmourType)
 {
-    if (((this->Armour >= MaxArmour) && !CanExceedMax) || this->Armour == OverchargedMaxArmour)
+    if (ArmourType > this->ArmourType)
     {
-        return false;
+        this->ArmourType = ArmourType;
+        this->Armour = Armour;
+        return true;
     }
 
-    if (this->Armour < MaxArmour && !CanExceedMax)
+    if (this->ArmourType == ArmourType && this->Armour < Armour)
     {
-        this->Armour += Armour;
-        this->Armour = FMath::Clamp(this->Armour, 0, MaxArmour);
-    }
-    else if (CanExceedMax)
-    {
-        this->Armour += Armour;
-        this->Armour = FMath::Clamp(this->Armour, 0, OverchargedMaxArmour);
+        this->Armour = Armour;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 bool AUQuakeCharacter::PickupHealth(int32 Health, bool CanExceedMax)
