@@ -207,6 +207,9 @@ int32 AUQuakeCharacter::GetAmmo(EAmmoType ammoType)
         case EAmmoType::ENail:
             return Nails;
             break;
+        case EAmmoType::ECell:
+            return Cells;
+            break;
         default:
             return 0;
             break;
@@ -244,6 +247,10 @@ void AUQuakeCharacter::SetAmmo(EAmmoType ammoType, int32 value)
         case EAmmoType::ENail:
             Nails = value;
             Nails = FMath::Clamp(Nails, 0, MaxNails);
+            break;
+        case EAmmoType::ECell:
+            Cells = value;
+            Cells = FMath::Clamp(Cells, 0, MaxCells);
             break;
     }
 }
@@ -391,6 +398,8 @@ int32 AUQuakeCharacter::GetMaxAmmo(EAmmoType ammoType)
             return MaxShells;
         case EAmmoType::ENail:
             return MaxNails;
+        case EAmmoType::ECell:
+            return MaxCells;
         default:
             return 0;
     }

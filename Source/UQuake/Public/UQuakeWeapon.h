@@ -13,7 +13,8 @@ enum class EAmmoType : uint8
 {
     ENone       UMETA(DisplayName="None"),
     EShell      UMETA(DisplayName="Shells"),
-    ENail       UMETA(DisplayName="Nails")
+    ENail       UMETA(DisplayName="Nails"),
+    ECell       UMETA(DisplayName="Cells")
 };
 
 UCLASS()

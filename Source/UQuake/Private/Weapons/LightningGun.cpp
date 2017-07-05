@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "UQuake.h"
+#include "UQuakeCharacter.h"
 #include "LightningGun.h"
 
 ALightningGun::ALightningGun()
@@ -37,6 +38,13 @@ void ALightningGun::Fire(class AUQuakeCharacter* Player)
             IsFiring = true;
         }
         LightningParticle->ActivateSystem(true);
+        ConsumeAmmo(Player);
+
+        RemainingReloadTime = ReloadTime;
+    }
+    else if (IsFiring && Player->GetAmmo(AmmoType) <= 0)
+    {
+        EndFire();
     }
 }
 

@@ -114,6 +114,14 @@ public:
     /** The maximum number of Nails the player can carry */
     int32 MaxNails;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Ammo)
+        /** The number of Cells the player has */
+        int32 Cells;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Replicated, Category = Ammo)
+    /** The maximum number of Cells the player can carry */
+    int32 MaxCells;
+
     /** The current inventory of the player */
     UPROPERTY(VisibleAnywhere, Replicated, Category = Inventory)
     TArray<AUQuakeWeapon*> WeaponInventory;
