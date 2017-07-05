@@ -126,6 +126,8 @@ private:
     /** The index of the currently equipped weapon */
     int32 WeaponIndex;
 
+    bool WasFiring = false;
+
     /** Creates an instance of the specified weapon class and adds it to the inventory */
     void AddWeapon(TSubclassOf<AUQuakeWeapon> WeaponClass);
 

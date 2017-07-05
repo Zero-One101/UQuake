@@ -33,6 +33,8 @@ public:
 
     virtual void Fire(class AUQuakeCharacter* Player);
 
+    virtual void EndFire();
+
 protected:
     /** Returns whether or not the weapon is able to fire */
     bool CanFire(class AUQuakeCharacter* Player);

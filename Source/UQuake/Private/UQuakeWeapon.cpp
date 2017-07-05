@@ -36,6 +36,10 @@ void AUQuakeWeapon::Fire(class AUQuakeCharacter* player)
 {
 }
 
+void AUQuakeWeapon::EndFire()
+{
+}
+
 void AUQuakeWeapon::ServerPlayFireSound_Implementation()
 {
     UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());

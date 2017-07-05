@@ -22,12 +22,12 @@ void ABaseShotgun::FireSpread(FRotator Rotation, FVector MuzzleLocation)
 
         if (Hit.bBlockingHit)
         {
-            DrawDebugLine(GetWorld(), MuzzleLocation, Hit.Location, FColor::Green, true, -1, 0, 1);
-            DrawDebugSolidBox(GetWorld(), FVector(Hit.Location), FVector(5, 5, 5), FRotationMatrix::MakeFromX(Hit.ImpactNormal).ToQuat(), FColor::Green, true, -1, 0);
+            DrawDebugLine(GetWorld(), MuzzleLocation, Hit.Location, FColor::Green, false, 1, 0, 1);
+            DrawDebugSolidBox(GetWorld(), FVector(Hit.Location), FVector(5, 5, 5), FRotationMatrix::MakeFromX(Hit.ImpactNormal).ToQuat(), FColor::Green, false, 1, 0);
         }
         else
         {
-            DrawDebugLine(GetWorld(), MuzzleLocation, End, FColor::Red, true, -1, 0, 1);
+            DrawDebugLine(GetWorld(), MuzzleLocation, End, FColor::Red, false, 1, 0, 1);
         }
     }
 }

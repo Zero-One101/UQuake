@@ -262,6 +262,7 @@ void AUQuakeCharacter::FireHeld(float Val)
 {
     if (Val > 0)
     {
+        WasFiring = true;
         if (Role == ROLE_Authority)
         {
             CurrentWeapon->Fire(this);
@@ -269,6 +270,14 @@ void AUQuakeCharacter::FireHeld(float Val)
         else
         {
             ServerFireHeld(Val);
+        }
+    }
+    else
+    {
+        if (WasFiring)
+        {
+            CurrentWeapon->EndFire();
+            WasFiring = false;
         }
     }
 }
