@@ -3,7 +3,6 @@
 #include "UQuake.h"
 #include "UQuakeProjectile.h"
 #include "UQuakeCharacter.h"
-#include "GameFramework/ProjectileMovementComponent.h"
 
 AUQuakeProjectile::AUQuakeProjectile() 
 {
@@ -27,6 +26,8 @@ AUQuakeProjectile::AUQuakeProjectile()
 	ProjectileMovement->MaxSpeed = 3000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
     ProjectileMovement->bShouldBounce = false;
+
+    ProjectileMesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Other Projectile Component"));
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;

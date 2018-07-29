@@ -4,7 +4,7 @@ using UnrealBuildTool;
 
 public class UQuake : ModuleRules
 {
-	public UQuake(TargetInfo Target)
+	public UQuake(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 	}

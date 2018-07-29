@@ -5,21 +5,9 @@ using System.Collections.Generic;
 
 public class UQuakeEditorTarget : TargetRules
 {
-	public UQuakeEditorTarget(TargetInfo Target) : base()
+	public UQuakeEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-	}
-
-	//
-	// TargetRules interface.
-	//
-
-	public override void SetupBinaries(
-		TargetInfo Target,
-		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
-		ref List<string> OutExtraModuleNames
-		)
-	{
-		OutExtraModuleNames.Add("UQuake");
+        ExtraModuleNames.Add("UQuake");
 	}
 }

@@ -12,7 +12,7 @@ ABasePickup::ABasePickup()
     bReplicates = true;
     BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
     BoxCollision->SetupAttachment(RootComponent);
-    BoxCollision->bGenerateOverlapEvents = true;
+    BoxCollision->SetGenerateOverlapEvents(true);
     BoxCollision->SetCollisionProfileName(FName("OverlapAll"));
     BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &ABasePickup::OnOverlapBegin);
     RotatingMovementComponent = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("RotatingMovementComponent"));
